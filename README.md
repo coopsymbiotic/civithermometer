@@ -1,7 +1,5 @@
 # civithermometer
 
-![Screenshot](/images/screenshot.png)
-
 This extension provides the ability to define and use a visual thermometer for contribution pages. When
 enabled, people with CiviContribute access can easily choose to include a thermometer on their pages
 and set goal and stretch goal targets for it.
