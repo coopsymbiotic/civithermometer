@@ -7,7 +7,7 @@ use CRM_Civithermometer_ExtensionUtil as E;
  *
  * @see https://docs.civicrm.org/dev/en/latest/framework/quickform/
  */
-class CRM_Civithermometer_Form_ContributionThermometer extends CRM_Core_Form {
+class CRM_Civithermometer_Form_ContributionThermometer extends CRM_Contribute_Form_ContributionPage {
 
   public function getDefaultContext() {
     return 'create';
@@ -36,11 +36,17 @@ class CRM_Civithermometer_Form_ContributionThermometer extends CRM_Core_Form {
     parent::buildQuickForm();
   }
 
+  public function preProcess() {
+    parent::preProcess();
+  }
+
   public function postProcess() {
 
     // get the submitted form values.
     $params = $this->controller->exportValues($this->_name);
-    $params['id'] = $this->_id;
+    if ($this->_action & CRM_Core_Action::UPDATE) {
+      $params['id'] = $this->_id;
+    }
     $params['thermometer_is_enabled'] = CRM_Utils_Array::value('thermometer_is_enabled', $params, FALSE);
     if ($params['thermometer_is_enabled']) {
       $params['thermometer_is_double'] = CRM_Utils_Array::value('thermometer_is_double', $params, FALSE);
