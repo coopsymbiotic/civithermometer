@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<extension key="civithermometer" type="module">
+  <file>civithermometer</file>
+  <name>CiviThermometer</name>
+  <description>An extension that makes it easy to add a customised thermometer to contribution pages</description>
+  <license>AGPL-3.0</license>
+  <maintainer>
+    <author>John Twyman</author>
+    <email>john.twyman@greens.org.au</email>
+  </maintainer>
+  <urls>
+    <url desc="Main Extension Page">https://github.com/australiangreens/civithermometer</url>
+    <url desc="Documentation">https://github.com/australiangreens/civithermometer</url>
+    <url desc="Support">https://github.com/australiangreens/civithermometer</url>
+    <url desc="Licensing">http://www.gnu.org/licenses/agpl-3.0.html</url>
+  </urls>
+  <releaseDate>2019-12-03</releaseDate>
+  <version>0.1</version>
+  <develStage>alpha</develStage>
+  <compatibility>
+    <ver>5.0</ver>
+  </compatibility>
+  <comments>This extension is under active development. It is not suitable for production use.</comments>
+  <civix>
+    <namespace>CRM/Civithermometer</namespace>
+  </civix>
+</extension>

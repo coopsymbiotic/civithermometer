@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<menu>
+  <item>
+    <path>civicrm/admin/thermometer</path>
+    <page_callback>CRM_Civithermometer_Form_ThermoAdmin</page_callback>
+    <title>CiviThermometer extension settings</title>
+    <access_arguments>administer CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/admin/contribute/thermometer</path>
+    <page_callback>CRM_Civithermometer_Form_ContributionThermometer</page_callback>
+    <title>Thermometer settings</title>
+    <access_arguments>access CiviContribute</access_arguments>
+  </item>
+</menu>
