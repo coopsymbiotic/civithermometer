@@ -6,7 +6,7 @@ use CRM_Civithermometer_ExtensionUtil as E;
 /**
  * Implements hook_civicrm_config().
  *
- * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_config/ 
+ * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_config/
  */
 function civithermometer_civicrm_config(&$config) {
   _civithermometer_civix_civicrm_config($config);
@@ -124,17 +124,6 @@ function civithermometer_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) 
 }
 
 /**
- * Implements hook_civicrm_entityTypes().
- *
- * Declare entity types provided by this module.
- *
- * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_entityTypes
- */
-function civithermometer_civicrm_entityTypes(&$entityTypes) {
-  _civithermometer_civix_civicrm_entityTypes($entityTypes);
-}
-
-/**
  * Implements hook_civicrm_thems().
  */
 function civithermometer_civicrm_themes(&$themes) {
@@ -200,4 +189,42 @@ function civithermometer_civicrm_tabset($tabsetName, &$tabs, $context) {
       array_slice($tabs, 2)
     );
   }
+}
+
+function civithermometer_civicrm_entityTypes(&$entityTypes) {
+  $entityTypes['CRM_Contribute_DAO_ContributionPage']['fields_callback'][] = function($class, &$fields) {
+    $fields['thermometer_is_enabled'] = array(
+    'name' => 'thermometer_is_enabled',
+    'title' => E::ts('Add thermometer to the page'),
+    'type' => CRM_Utils_Type::T_BOOLEAN,
+    'entity' => 'ContributionPage',
+    'bao' => 'CRM_Contribute_BAO_ContributionPage',
+    'localizable' => 0,
+    'html' => array(
+      'type' => 'CheckBox',
+    ),
+  );
+  $fields['thermometer_is_double'] = array(
+    'name' => 'thermometer_is_double',
+    'title' => E::ts('is this a double your donation thermometer? (optional)'),
+    'type' => CRM_Utils_Type::T_BOOLEAN,
+    'entity' => 'ContributionPage',
+    'bao' => 'CRM_Contribute_BAO_ContributionPage',
+    'localizable' => 0,
+    'html' => array(
+      'type' => 'CheckBox',
+    ),
+  );
+  $fields['thermometer_stretch_goal'] = array(
+    'name' => 'thermometer_stretch_goal',
+    'title' => E::ts('Stretch goal if goal amount is reached? (optional)'),
+    'type' => CRM_Utils_Type::T_MONEY,
+    'entity' => 'ContributionPage',
+    'bao' => 'CRM_Contribute_BAO_ContributionPage',
+    'localizable' => 0,
+    'html' => array(
+      'type' => 'Text',
+    ),
+  );
+  };
 }

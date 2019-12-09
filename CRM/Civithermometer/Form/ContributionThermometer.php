@@ -8,50 +8,47 @@ use CRM_Civithermometer_ExtensionUtil as E;
  * @see https://docs.civicrm.org/dev/en/latest/framework/quickform/
  */
 class CRM_Civithermometer_Form_ContributionThermometer extends CRM_Core_Form {
+
+  public function getDefaultContext() {
+    return 'create';
+  }
+
+  public function getDefaultEntity() {
+    return 'ContributionPage';
+  }
+
   public function buildQuickForm() {
 
-    // add form elements
-    $this->add(
-      'select', // field type
-      'favorite_color', // field name
-      'Favorite Color', // field label
-      $this->getColorOptions(), // list of options
-      TRUE // is required
-    );
+    // add fields
+    $this->addField('thermometer_is_enabled');
+    $this->addField('thermometer_stretch_goal');
+    $this->addField('thermometer_is_double');
+
     $this->addButtons(array(
       array(
         'type' => 'submit',
-        'name' => E::ts('Submit'),
+        'name' => E::ts('Save'),
         'isDefault' => TRUE,
       ),
     ));
 
-    // export form elements
     $this->assign('elementNames', $this->getRenderableElementNames());
     parent::buildQuickForm();
   }
 
   public function postProcess() {
-    $values = $this->exportValues();
-    $options = $this->getColorOptions();
-    CRM_Core_Session::setStatus(E::ts('You picked color "%1"', array(
-      1 => $options[$values['favorite_color']],
-    )));
-    parent::postProcess();
-  }
 
-  public function getColorOptions() {
-    $options = array(
-      '' => E::ts('- select -'),
-      '#f00' => E::ts('Red'),
-      '#0f0' => E::ts('Green'),
-      '#00f' => E::ts('Blue'),
-      '#f0f' => E::ts('Purple'),
-    );
-    foreach (array('1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e') as $f) {
-      $options["#{$f}{$f}{$f}"] = E::ts('Grey (%1)', array(1 => $f));
+    // get the submitted form values.
+    $params = $this->controller->exportValues($this->_name);
+    $params['id'] = $this->_id;
+    $params['thermometer_is_enabled'] = CRM_Utils_Array::value('thermometer_is_enabled', $params, FALSE);
+    if ($params['thermometer_is_enabled']) {
+      $params['thermometer_is_double'] = CRM_Utils_Array::value('thermometer_is_double', $params, FALSE);
+      $params['thermometer_stretch_goal'] = CRM_Utils_Array::value('thermometer_stretch_goal', $params, FALSE);
     }
-    return $options;
+
+    $dao = CRM_Contribute_BAO_ContributionPage::create($params);
+    parent::endPostProcess();
   }
 
   /**
