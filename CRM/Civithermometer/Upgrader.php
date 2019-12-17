@@ -12,8 +12,12 @@ class CRM_Civithermometer_Upgrader extends CRM_Civithermometer_Upgrader_Base {
   /**
    * Example: Run an external SQL script when the module is installed.
    *
+   */
   public function install() {
-    $this->executeSqlFile('sql/myinstall.sql');
+    // Run install SQL if the thermometer columns don't exist
+    if (!CRM_Core_DAO::checkFieldExists('civicrm_contribution_page', 'thermometer_is_enabled')) {
+      $this->executeSqlFile('sql/install.sql');
+    }
   }
 
   /**

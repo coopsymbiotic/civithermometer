@@ -27,10 +27,6 @@ function civithermometer_civicrm_xmlMenu(&$files) {
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_install
  */
 function civithermometer_civicrm_install() {
-  // First test if the thermometer columns already exist
-  if (!CRM_Core_DAO::checkFieldExists('civicrm_contribution_page', 'thermometer_is_enabled') {
-    $this->executeSqlFile('sql/install.sql');
-  }
   _civithermometer_civix_civicrm_install();
 }
 
