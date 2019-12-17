@@ -8,7 +8,7 @@
   </item>
   <item>
     <path>civicrm/admin/contribute/thermometer</path>
-    <page_callback>CRM_Civithermometer_Form_ContributionThermometer</page_callback>
+    <page_callback>CRM_Civithermometer_Form_Thermometer</page_callback>
     <title>Thermometer settings</title>
     <access_arguments>access CiviContribute</access_arguments>
   </item>

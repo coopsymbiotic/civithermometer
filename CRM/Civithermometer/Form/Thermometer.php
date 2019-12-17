@@ -7,7 +7,7 @@ use CRM_Civithermometer_ExtensionUtil as E;
  *
  * @see https://docs.civicrm.org/dev/en/latest/framework/quickform/
  */
-class CRM_Civithermometer_Form_ContributionThermometer extends CRM_Contribute_Form_ContributionPage {
+class CRM_Civithermometer_Form_Thermometer extends CRM_Contribute_Form_ContributionPage {
 
   public function getDefaultContext() {
     return 'create';
