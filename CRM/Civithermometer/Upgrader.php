@@ -67,7 +67,9 @@ class CRM_Civithermometer_Upgrader extends CRM_Civithermometer_Upgrader_Base {
    */
   public function upgrade_4200() {
     $this->ctx->log->info('Applying update 4200');
-    $this->executeSqlFile('sql/auto_install.sql');
+    if (!CRM_Core_DAO::checkFieldExists('civicrm_contribution_page', 'thermometer_is_enabled')) {
+      $this->executeSqlFile('sql/install.sql');
+    }
     return TRUE;
   }
 
