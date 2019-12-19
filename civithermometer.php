@@ -230,6 +230,7 @@ function civithermometer_civicrm_entityTypes(&$entityTypes) {
 }
 
 function civithermometer_civicrm_buildForm($formName, &$form) {
+  // Only focus on Contribution Pages
   if ($formName == 'CRM_Contribute_Form_Contribution_Main') {
     $formId = $form->_id;
     $contribPage = \Civi\Api4\ContributionPage::get()
@@ -242,6 +243,7 @@ function civithermometer_civicrm_buildForm($formName, &$form) {
       ->addWhere('id', '=', $formId)
       ->execute();
 
+    // Only continue if the thermometer_is_enabled variable is set to 1
     if ($contribPage->first()['thermometer_is_enabled'] == 1) {
       $contributions = \Civi\Api4\Contribution::get()
         ->addWhere('is_test', '=', 0)
@@ -249,6 +251,7 @@ function civithermometer_civicrm_buildForm($formName, &$form) {
         ->addWhere('contribution_page_id', '=', $formId)
         ->execute();
 
+      // Prepare variables to pass through to Javascript
       $amountGoal = $contribPage->first()['goal_amount'];
       $amountStretch = $contribPage->first()['thermometer_stretch_goal'];
       $isDouble = $contribPage->first()['thermometer_is_double'];
@@ -262,12 +265,20 @@ function civithermometer_civicrm_buildForm($formName, &$form) {
         });
       }
 
+      // Get thermometer HTML and CSS
+      $thermometer_settings = \Civi\Api4\Setting::get()
+        ->setSelect([
+          'civithermometer_css',
+          'civithermometer_html',
+        ])
+        ->execute();
+
       CRM_Core_Resources::singleton()->addVars('civithermo', array(
-        'formId' => $form->_id,
-        'count' => $numberDonors,
-        'contribresult' => $contributions->first(),
-        'amounts' => $amounts,
-        'raised' => $amountRaised,
+        'numberDonors' => $numberDonors,
+        'amountGoal' => $amountGoal,
+        'amountStretch' => $amountStretch,
+        'amountRaised' => $amountRaised,
+        'form' => $form,
       ));
     }
   }
