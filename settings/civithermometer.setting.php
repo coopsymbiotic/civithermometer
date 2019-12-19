@@ -45,7 +45,7 @@ return array(
     'html_attributes' => array(
       'cols' => 80,
       'rows' => 20,
-	  ),
+    ),
     'quick_form_type' => 'Element',
   ),
   'civithermometer_css' => array(
