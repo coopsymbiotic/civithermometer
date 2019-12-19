@@ -228,3 +228,47 @@ function civithermometer_civicrm_entityTypes(&$entityTypes) {
   );
   };
 }
+
+function civithermometer_civicrm_buildForm($formName, &$form) {
+  if ($formName == 'CRM_Contribute_Form_Contribution_Main') {
+    $formId = $form->_id;
+    $contribPage = \Civi\Api4\ContributionPage::get()
+      ->setSelect([
+        'thermometer_is_enabled',
+        'thermometer_is_double',
+        'thermometer_stretch_goal',
+        'goal_amount',
+      ])
+      ->addWhere('id', '=', $formId)
+      ->execute();
+
+    if ($contribPage->first()['thermometer_is_enabled'] == 1) {
+      $contributions = \Civi\Api4\Contribution::get()
+        ->addWhere('is_test', '=', 0)
+        ->addWhere('contribution_status_id', '=', 1)
+        ->addWhere('contribution_page_id', '=', $formId)
+        ->execute();
+
+      $amountGoal = $contribPage->first()['goal_amount'];
+      $amountStretch = $contribPage->first()['thermometer_stretch_goal'];
+      $isDouble = $contribPage->first()['thermometer_is_double'];
+      $numberDonors = $contributions->count();
+      $amountRaised = 0;
+
+      if ($numberDonors > 0) {
+        $amounts = array_column((array) $contributions, 'total_amount');
+        $amountRaised = array_reduce($amounts, function ($a, $b) {
+          return ($a += $b);
+        });
+      }
+
+      CRM_Core_Resources::singleton()->addVars('civithermo', array(
+        'formId' => $form->_id,
+        'count' => $numberDonors,
+        'contribresult' => $contributions->first(),
+        'amounts' => $amounts,
+        'raised' => $amountRaised,
+      ));
+    }
+  }
+}

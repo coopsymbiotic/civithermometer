@@ -18,7 +18,7 @@
   <version>0.1</version>
   <develStage>alpha</develStage>
   <compatibility>
-    <ver>5.0</ver>
+    <ver>5.19</ver>
   </compatibility>
   <comments>This extension is under active development. It is not suitable for production use.</comments>
   <civix>
