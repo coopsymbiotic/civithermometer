@@ -266,20 +266,31 @@ function civithermometer_civicrm_buildForm($formName, &$form) {
       }
 
       // Get thermometer HTML and CSS
-      $thermometer_settings = \Civi\Api4\Setting::get()
+      $thermo_settings = \Civi\Api4\Setting::get()
         ->setSelect([
           'civithermometer_css',
           'civithermometer_html',
         ])
         ->execute();
 
+      $css = $thermo_settings[0]['value'];
+      $html = $thermo_settings[1]['value'];
+
       CRM_Core_Resources::singleton()->addVars('civithermo', array(
         'numberDonors' => $numberDonors,
         'amountGoal' => $amountGoal,
         'amountStretch' => $amountStretch,
         'amountRaised' => $amountRaised,
-        'form' => $form,
+        'thermo' => $thermo_settings,
       ));
+
+      if (empty($form->_pcpInfo['id']) && !empty($form->_values['intro_text'])) {
+        $intro_text = $form->_values['intro_text']; 
+        $intro_text .= $html;
+        $form->assign('intro_text', $intro_text);
+      }
+
+      CRM_Core_Resources::singleton()->addStyle($css);
     }
   }
 }
