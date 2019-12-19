@@ -43,7 +43,7 @@ return array(
     'default' => '',
     'html_type' => 'TextArea',
     'html_attributes' => array(
-	    'cols' => 80,
+      'cols' => 80,
       'rows' => 20,
 	  ),
     'quick_form_type' => 'Element',
@@ -61,7 +61,7 @@ return array(
     'title' => 'Thermometer CSS',
     'html_type' => 'TextArea',
     'html_attributes' => array(
-	    'cols' => 80,
+      'cols' => 80,
       'rows' => 20,
     ),
     'quick_form_type' => 'Element',
