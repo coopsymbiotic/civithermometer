@@ -285,8 +285,8 @@ function civithermometer_civicrm_buildForm($formName, &$form) {
       ));
 
       if (empty($form->_pcpInfo['id']) && !empty($form->_values['intro_text'])) {
-        $intro_text = $form->_values['intro_text']; 
-        $intro_text .= $html;
+        $intro_text = $form->_values['intro_text'];
+        $intro_text .= html_entity_decode($html);
         $form->assign('intro_text', $intro_text);
       }
 
