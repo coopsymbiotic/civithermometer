@@ -276,12 +276,14 @@ function civithermometer_civicrm_buildForm($formName, &$form) {
       $css = $thermo_settings[0]['value'];
       $html = $thermo_settings[1]['value'];
 
+      // Add thermo data to the page so our JS can access it
       CRM_Core_Resources::singleton()->addVars('civithermo', array(
         'numberDonors' => $numberDonors,
         'amountGoal' => $amountGoal,
         'amountStretch' => $amountStretch,
         'amountRaised' => $amountRaised,
         'thermo' => $thermo_settings,
+        'currency' => $form->_values['currency'],
       ));
 
       if (empty($form->_pcpInfo['id']) && !empty($form->_values['intro_text'])) {
