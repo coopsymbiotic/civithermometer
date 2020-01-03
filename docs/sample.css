@@ -1,0 +1,62 @@
+#civithermo_target {
+  font-weight: bold;
+  color: rgb(239,129,60);
+  margin-bottom: 10px;
+}
+
+#civithermo_meter {
+  padding: 25px 0;
+  width: 100%;
+  background: rgb(237,237,237);
+  text-align: center;
+}
+
+#civithermo_glass {
+border-style: solid;
+border-color: rgb(58,181,75);
+border-radius: 100px;
+display: block;
+height: 300px;
+margin: auto;
+padding: 0px;
+position: relative;
+width: 50px;
+margin-bottom: 30px; 
+box-sizing: content-box !important;
+-webkit-box-sizing: content-box !important;
+line-height: 24px !important;
+overflow: hidden;
+}
+
+#civithermo_glass:after {
+content: '';
+position: absolute;
+top: 10%;
+bottom: 10%;
+left: 10%;
+right: 10%;
+background: 
+linear-gradient(
+  to bottom,
+  rgb(58,181,75) 0%,
+  rgb(58,181,75) 20%,
+  rgba(121, 228, 88, 0) 21%,
+  rgba(255, 255, 255, 0) 100%);
+background-size: 100% 13px;
+}
+
+#civithermo_amount {
+  background: rgb(0,150,67);
+  border-radius: 0px 0px 100px 100px;
+  display: block;
+  width: 50px;
+  position: absolute;
+  bottom: 0px;
+  box-sizing: content-box !important;
+  -webkit-box-sizing: content-box !important;
+  line-height: 24px !important;
+}
+
+#civithermo_target, #civithermo_total, #civithermo_donors, #civithermo_raised {
+  margin-top: 0;
+}
