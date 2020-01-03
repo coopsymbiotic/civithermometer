@@ -147,8 +147,8 @@ function civithermometer_civicrm_preProcess($formName, &$form) {
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_navigationMenu
  */
 function civithermometer_civicrm_navigationMenu(&$menu) {
-  _civithermometer_civix_insert_navigation_menu($menu, 'Administer/CiviThermometer', array(
-    'label' => E::ts('CiviThermometer'),
+  _civithermometer_civix_insert_navigation_menu($menu, 'Administer/CiviContribute', array(
+    'label' => E::ts('CiviThermometer Settings'),
     'name' => 'civithermometer_settings',
     'url' => 'civicrm/admin/thermometer',
     'permission' => 'administer CiviCRM',

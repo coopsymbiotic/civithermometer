@@ -54,7 +54,35 @@ class CRM_Civithermometer_Form_Thermometer extends CRM_Contribute_Form_Contribut
     }
 
     $dao = CRM_Contribute_BAO_ContributionPage::create($params);
-    parent::endPostProcess();
+    $className = CRM_Utils_String::getClassName($this->_name);
+    $subPage = strtolower($className);
+    $nextPage = 'membership';
+
+    CRM_Core_Session::setStatus(ts("'%1' information has been saved.",
+      [1 => CRM_Utils_Array::value('title', CRM_Utils_Array::value($subPage, $this->get('tabHeader')), $className)]
+    ), $this->getTitle(), 'success');
+
+    $this->postProcessHook();
+    if ($this->controller->getButtonName('submit') == "_qf_{$className}_next") {
+      CRM_Utils_System::redirect(CRM_Utils_System::url("civicrm/admin/contribute/{$subPage}",
+        "action=update&reset=1&id={$this->_id}"
+      ));
+    }
+    elseif ($this->controller->getButtonName('submit') == "_qf_{$className}_submit_savenext") {
+      if ($nextPage) {
+        CRM_Utils_System::redirect(CRM_Utils_System::url("civicrm/admin/contribute/{$nextPage}",
+          "action=update&reset=1&id={$this->_id}"
+        ));
+      }
+      else {
+        CRM_Utils_System::redirect(CRM_Utils_System::url("civicrm/admin/contribute",
+          "reset=1"
+        ));
+      }
+    }
+    else {
+      CRM_Utils_System::redirect(CRM_Utils_System::url("civicrm/admin/contribute", 'reset=1'));
+    }
   }
 
   /**
