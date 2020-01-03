@@ -43,8 +43,10 @@ cv en civithermometer
 Once enabled, site administrators can define the HTML and CSS to render the thermometer under the path
 `/civicrm/admin/thermometer`.
 
+More information about the required HTML and sample CSS & HTML exists in the `docs/` subdirectory. 
+
 Users setting up contribution pages can navigate to a new 'Thermometer' tab and enable the thermometer there.
-Once enabled, they can set goal and stretch goal targets, and tweak some of the language displayed in the
+Once enabled, they can set goal and stretch goal targets, and tweak some additional settings for the
 thermometer.
 
 ## Known Issues
@@ -56,3 +58,6 @@ class names. These will be documented in this file in due course.
 The extension also currently only inserts the thermometer HTML at the end of the introductory text field.
 There is no planned support for being able to choose which text field on the contribution page the
 thermometer can be placed.
+
+Finally, the placement of the Thermometer tab in the back office contribution page tabset is sub-optimal.
+Most notably the "Save and Next" button behaviour is not what one would expect when in the Amount tab.
