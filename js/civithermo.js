@@ -2,9 +2,10 @@ function civithermo_render() {
   // Load data from Civi data object
   const goal = parseInt(CRM.vars.civithermo.amountGoal);
   const stretch = parseInt(CRM.vars.civithermo.amountStretch);
-  const raised = CRM.vars.civithermo.amountRaised;
+  const raised = parseInt(CRM.vars.civithermo.amountRaised);
   const currency = CRM.vars.civithermo.currency;
   const donors = CRM.vars.civithermo.numberDonors;
+  const isDouble = parseInt(CRM.vars.civithermo.isDouble);
 
   // Declare thermometer elements
   let thermo_target = document.getElementById('civithermo_target');
@@ -16,8 +17,25 @@ function civithermo_render() {
   let thermo_percent = Math.floor((raised / goal) * 100);
 
   // Manipulate thermometer elements
-  thermo_target.innerHTML = 'TARGET ' + goal.toLocaleString('en', {style: 'currency', currency: currency, minimumFractionDigits: 0});
-  thermo_total.innerHTML = raised.toLocaleString('en', {style: 'currency', currency: currency, minimumFractionDigits: 0}) + ' SO FAR';
+
+  if (raised >= goal) {
+    thermo_target.innerHTML = 'TARGET <span style="text-decoration: line-through">'
+      + goal.toLocaleString('en', {style: 'currency', currency: currency, minimumFractionDigits: 0})
+      + '</span> '
+      + stretch.toLocaleString('en', {style: 'currency', currency: currency, minimumFractionDigits: 0});
+    thermo_percent = Math.floor((raised / stretch) * 100);
+  } else {
+    thermo_target.innerHTML = 'TARGET ' + goal.toLocaleString('en', {style: 'currency', currency: currency, minimumFractionDigits: 0});
+  }
+
+  if (isDouble) {
+    thermo_total.innerHTML = raised.toLocaleString('en', {style: 'currency', currency: currency, minimumFractionDigits: 0})
+      + ' DONATED MEANS '
+      + (2 * raised).toLocaleString('en', {style: 'currency', currency: currency, minimumFractionDigits: 0}) + ' SO FAR';
+  } else {
+    thermo_total.innerHTML = raised.toLocaleString('en', {style: 'currency', currency: currency, minimumFractionDigits: 0}) + ' SO FAR';
+  }
+
   thermo_amount.style.height = thermo_percent + '%';
   thermo_donors.innerHTML = donors + ' donors';
   thermo_raised.innerHTML = thermo_percent + '% raised';

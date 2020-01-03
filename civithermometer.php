@@ -282,8 +282,8 @@ function civithermometer_civicrm_buildForm($formName, &$form) {
         'amountGoal' => $amountGoal,
         'amountStretch' => $amountStretch,
         'amountRaised' => $amountRaised,
-        'thermo' => $thermo_settings,
         'currency' => $form->_values['currency'],
+        'isDouble' => $isDouble,
       ));
 
       if (empty($form->_pcpInfo['id']) && !empty($form->_values['intro_text'])) {
