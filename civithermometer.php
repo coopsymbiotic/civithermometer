@@ -293,6 +293,8 @@ function civithermometer_civicrm_buildForm($formName, &$form) {
       }
 
       CRM_Core_Resources::singleton()->addStyle($css);
+      CRM_Core_Resources::singleton()->addScriptFile('civithermometer', 'js/civithermo.js');
+      CRM_Core_Resources::singleton()->addScript('civithermo_render();');
     }
   }
 }
