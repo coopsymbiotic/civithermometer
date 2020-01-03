@@ -16,24 +16,27 @@ function civithermo_render() {
 
   let thermo_percent = Math.floor((raised / goal) * 100);
 
+  // Get browser locale
+  const locale = navigator.language;
+
   // Manipulate thermometer elements
 
   if (raised >= goal) {
     thermo_target.innerHTML = 'TARGET <span style="text-decoration: line-through">'
-      + goal.toLocaleString('en', {style: 'currency', currency: currency, minimumFractionDigits: 0})
+      + goal.toLocaleString(locale, {style: 'currency', currency: currency, minimumFractionDigits: 0})
       + '</span> '
-      + stretch.toLocaleString('en', {style: 'currency', currency: currency, minimumFractionDigits: 0});
+      + stretch.toLocaleString(locale, {style: 'currency', currency: currency, minimumFractionDigits: 0});
     thermo_percent = Math.floor((raised / stretch) * 100);
   } else {
-    thermo_target.innerHTML = 'TARGET ' + goal.toLocaleString('en', {style: 'currency', currency: currency, minimumFractionDigits: 0});
+    thermo_target.innerHTML = 'TARGET ' + goal.toLocaleString(locale, {style: 'currency', currency: currency, minimumFractionDigits: 0});
   }
 
   if (isDouble) {
-    thermo_total.innerHTML = raised.toLocaleString('en', {style: 'currency', currency: currency, minimumFractionDigits: 0})
+    thermo_total.innerHTML = raised.toLocaleString(locale, {style: 'currency', currency: currency, minimumFractionDigits: 0})
       + ' DONATED MEANS '
-      + (2 * raised).toLocaleString('en', {style: 'currency', currency: currency, minimumFractionDigits: 0}) + ' SO FAR';
+      + (2 * raised).toLocaleString(locale, {style: 'currency', currency: currency, minimumFractionDigits: 0}) + ' SO FAR';
   } else {
-    thermo_total.innerHTML = raised.toLocaleString('en', {style: 'currency', currency: currency, minimumFractionDigits: 0}) + ' SO FAR';
+    thermo_total.innerHTML = raised.toLocaleString(locale, {style: 'currency', currency: currency, minimumFractionDigits: 0}) + ' SO FAR';
   }
 
   thermo_amount.style.height = thermo_percent + '%';
