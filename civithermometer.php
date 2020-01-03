@@ -241,6 +241,7 @@ function civithermometer_civicrm_buildForm($formName, &$form) {
         'goal_amount',
       ])
       ->addWhere('id', '=', $formId)
+      ->setCheckPermissions(FALSE)
       ->execute();
 
     // Only continue if the thermometer_is_enabled variable is set to 1
@@ -249,6 +250,7 @@ function civithermometer_civicrm_buildForm($formName, &$form) {
         ->addWhere('is_test', '=', 0)
         ->addWhere('contribution_status_id', '=', 1)
         ->addWhere('contribution_page_id', '=', $formId)
+        ->setCheckPermissions(FALSE)
         ->execute();
 
       // Prepare variables to pass through to Javascript
@@ -271,6 +273,7 @@ function civithermometer_civicrm_buildForm($formName, &$form) {
           'civithermometer_css',
           'civithermometer_html',
         ])
+        ->setCheckPermissions(FALSE)
         ->execute();
 
       $css = $thermo_settings[0]['value'];
