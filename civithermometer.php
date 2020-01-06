@@ -245,7 +245,7 @@ function civithermometer_civicrm_buildForm($formName, &$form) {
       ->execute();
 
     // Only continue if the thermometer_is_enabled variable is set to 1
-    if ($contribPage->first()['thermometer_is_enabled'] == 1) {
+    if ($contribPage->first()['thermometer_is_enabled'] == 1 && $contribPage->first()['goal_amount'] != null) {
       $contributions = \Civi\Api4\Contribution::get()
         ->addWhere('is_test', '=', 0)
         ->addWhere('contribution_status_id', '=', 1)

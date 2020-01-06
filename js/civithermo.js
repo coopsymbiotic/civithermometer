@@ -19,9 +19,12 @@ function civithermo_render() {
   // Get browser locale
   const locale = navigator.language;
 
+  // If there's no goal amount then we exit early
+  if ( isNaN(goal) ) { return };
+
   // Manipulate thermometer elements
 
-  if (raised >= goal) {
+  if (isNaN(stretch) && raised >= goal) {
     thermo_target.innerHTML = 'TARGET <span style="text-decoration: line-through">'
       + goal.toLocaleString(locale, {style: 'currency', currency: currency, minimumFractionDigits: 0})
       + '</span> '
@@ -33,7 +36,7 @@ function civithermo_render() {
 
   if (isDouble) {
     thermo_total.innerHTML = raised.toLocaleString(locale, {style: 'currency', currency: currency, minimumFractionDigits: 0})
-      + ' DONATED MEANS '
+      + ' DONATED MEANS <br />'
       + (2 * raised).toLocaleString(locale, {style: 'currency', currency: currency, minimumFractionDigits: 0}) + ' SO FAR';
   } else {
     thermo_total.innerHTML = raised.toLocaleString(locale, {style: 'currency', currency: currency, minimumFractionDigits: 0}) + ' SO FAR';
