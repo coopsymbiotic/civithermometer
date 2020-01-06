@@ -24,7 +24,7 @@ function civithermo_render() {
 
   // Manipulate thermometer elements
 
-  if (isNaN(stretch) && raised >= goal) {
+  if (!isNaN(stretch) && raised >= goal) {
     thermo_target.innerHTML = 'TARGET <span style="text-decoration: line-through">'
       + goal.toLocaleString(locale, {style: 'currency', currency: currency, minimumFractionDigits: 0})
       + '</span> '
