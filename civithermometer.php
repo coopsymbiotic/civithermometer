@@ -163,18 +163,22 @@ function civithermometer_civicrm_tabset($tabsetName, &$tabs, $context) {
   if ($tabsetName == 'civicrm/admin/contribute') {
     if (!empty($context['contribution_page_id'])) {
       $contribID = $context['contribution_page_id'];
-      $url = CRM_Utils_System::url('civicrm/admin/contribute/thermometer',
-        "reset=1&snippet=5&force=1&id=$contribID&action=update&component=contribution");
       $tab['thermometer'] = array(
         'title' => ts('Thermometer'),
-        'link' => $url,
+        'link' => NULL,
         'valid' => 1,
         'active' => 1,
         'current' => false,
       );
+      // Insert this tab into position 2
+      $tabs = array_merge(
+        array_slice($tabs, 0, 2),
+        $tab,
+        array_slice($tabs, 2)
+       );
     }
     if (!empty($context['urlString']) && !empty($context['urlParams'])) {
-      $tab[] = array(
+      $tabs[CRM_Core_Action::VIEW] = array(
         'title' => ts('Thermometer'),
         'name' => ts('Thermometer'),
         'url' => $context['urlString'] . 'thermometer',
@@ -182,12 +186,6 @@ function civithermometer_civicrm_tabset($tabsetName, &$tabs, $context) {
         'uniqueName' => 'thermometer',
       );
     }
-    // Insert this tab into position 2
-    $tabs = array_merge(
-      array_slice($tabs, 0, 2),
-      $tab,
-      array_slice($tabs, 2)
-    );
   }
 }
 
