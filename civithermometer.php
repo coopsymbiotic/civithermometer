@@ -192,16 +192,16 @@ function civithermometer_civicrm_tabset($tabsetName, &$tabs, $context) {
 function civithermometer_civicrm_entityTypes(&$entityTypes) {
   $entityTypes['CRM_Contribute_DAO_ContributionPage']['fields_callback'][] = function($class, &$fields) {
     $fields['thermometer_is_enabled'] = array(
-    'name' => 'thermometer_is_enabled',
-    'title' => E::ts('Add thermometer to the page'),
-    'type' => CRM_Utils_Type::T_BOOLEAN,
-    'entity' => 'ContributionPage',
-    'bao' => 'CRM_Contribute_BAO_ContributionPage',
-    'localizable' => 0,
-    'html' => array(
-      'type' => 'CheckBox',
-    ),
-  );
+      'name' => 'thermometer_is_enabled',
+      'title' => E::ts('Add thermometer to the page'),
+      'type' => CRM_Utils_Type::T_BOOLEAN,
+      'entity' => 'ContributionPage',
+      'bao' => 'CRM_Contribute_BAO_ContributionPage',
+      'localizable' => 0,
+      'html' => array(
+        'type' => 'CheckBox',
+      ),
+    );
     $fields['thermometer_is_double'] = array(
       'name' => 'thermometer_is_double',
       'title' => E::ts('Is this a double your donation thermometer? (optional)'),
@@ -238,7 +238,7 @@ function civithermometer_civicrm_entityTypes(&$entityTypes) {
     $fields['thermometer_offset_donors'] = array(
       'name' => 'thermometer_offset_donors',
       'title' => E::ts('Amount to offset existing number of contributors? (optional)'),
-      'type' => CRM_Utils_Type::T_MONEY,
+      'type' => CRM_Utils_Type::T_INT,
       'entity' => 'ContributionPage',
       'bao' => 'CRM_Contribute_BAO_ContributionPage',
       'localizable' => 0,
