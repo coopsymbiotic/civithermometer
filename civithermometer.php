@@ -259,6 +259,8 @@ function civithermometer_civicrm_buildForm($formName, &$form) {
         'thermometer_is_double',
         'thermometer_stretch_goal',
         'goal_amount',
+        'thermometer_offset_amount',
+        'thermometer_offset_donors',
       ])
       ->addWhere('id', '=', $formId)
       ->setCheckPermissions(FALSE)
@@ -279,6 +281,8 @@ function civithermometer_civicrm_buildForm($formName, &$form) {
       $isDouble = $contribPage->first()['thermometer_is_double'];
       $numberDonors = $contributions->count();
       $amountRaised = 0;
+      $offsetRaised = $contribPage->first()['thermometer_offset_amount'];
+      $offsetDonors = $contribPage->first()['thermometer_offset_donors'];
 
       if ($numberDonors > 0) {
         $amounts = array_column((array) $contributions, 'total_amount');
@@ -286,6 +290,10 @@ function civithermometer_civicrm_buildForm($formName, &$form) {
           return ($a += $b);
         });
       }
+
+      // Apply offsets if defined
+      $amountRaised += $offsetRaised;
+      $numberDonors += $offsetDonors;
 
       // Get thermometer HTML and CSS
       $thermo_settings = \Civi\Api4\Setting::get()
