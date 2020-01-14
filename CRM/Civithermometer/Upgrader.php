@@ -60,7 +60,7 @@ class CRM_Civithermometer_Upgrader extends CRM_Civithermometer_Upgrader_Base {
   }
 
   /**
-   * Example: Run a couple simple queries.
+   * Add extension specific columns to civicrm_contribution_page table
    *
    * @return TRUE on success
    * @throws Exception
@@ -75,16 +75,18 @@ class CRM_Civithermometer_Upgrader extends CRM_Civithermometer_Upgrader_Base {
 
 
   /**
-   * Example: Run an external SQL script.
+   * Add two new columns to civicrm_contribution_page table
    *
    * @return TRUE on success
    * @throws Exception
+   */
   public function upgrade_4201() {
     $this->ctx->log->info('Applying update 4201');
-    // this path is relative to the extension base dir
-    $this->executeSqlFile('sql/upgrade_4201.sql');
+    if (!CRM_Core_DAO::checkFieldExists('civicrm_contribution_page', 'therometer_offset_amount')) {
+      $this->executeSqlFile('sql/upgrade_4201.sql');
+    }
     return TRUE;
-  } // */
+  }
 
 
   /**

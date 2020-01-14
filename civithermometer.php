@@ -202,28 +202,50 @@ function civithermometer_civicrm_entityTypes(&$entityTypes) {
       'type' => 'CheckBox',
     ),
   );
-  $fields['thermometer_is_double'] = array(
-    'name' => 'thermometer_is_double',
-    'title' => E::ts('is this a double your donation thermometer? (optional)'),
-    'type' => CRM_Utils_Type::T_BOOLEAN,
-    'entity' => 'ContributionPage',
-    'bao' => 'CRM_Contribute_BAO_ContributionPage',
-    'localizable' => 0,
-    'html' => array(
-      'type' => 'CheckBox',
-    ),
-  );
-  $fields['thermometer_stretch_goal'] = array(
-    'name' => 'thermometer_stretch_goal',
-    'title' => E::ts('Stretch goal if goal amount is reached? (optional)'),
-    'type' => CRM_Utils_Type::T_MONEY,
-    'entity' => 'ContributionPage',
-    'bao' => 'CRM_Contribute_BAO_ContributionPage',
-    'localizable' => 0,
-    'html' => array(
-      'type' => 'Text',
-    ),
-  );
+    $fields['thermometer_is_double'] = array(
+      'name' => 'thermometer_is_double',
+      'title' => E::ts('Is this a double your donation thermometer? (optional)'),
+      'type' => CRM_Utils_Type::T_BOOLEAN,
+      'entity' => 'ContributionPage',
+      'bao' => 'CRM_Contribute_BAO_ContributionPage',
+      'localizable' => 0,
+      'html' => array(
+        'type' => 'CheckBox',
+      ),
+    );
+    $fields['thermometer_stretch_goal'] = array(
+      'name' => 'thermometer_stretch_goal',
+      'title' => E::ts('Stretch goal if goal amount is reached? (optional)'),
+      'type' => CRM_Utils_Type::T_MONEY,
+      'entity' => 'ContributionPage',
+      'bao' => 'CRM_Contribute_BAO_ContributionPage',
+      'localizable' => 0,
+      'html' => array(
+        'type' => 'Text',
+      ),
+    );
+    $fields['thermometer_offset_amount'] = array(
+      'name' => 'thermometer_offset_amount',
+      'title' => E::ts('Amount to offset existing contribution total? (optional)'),
+      'type' => CRM_Utils_Type::T_MONEY,
+      'entity' => 'ContributionPage',
+      'bao' => 'CRM_Contribute_BAO_ContributionPage',
+      'localizable' => 0,
+      'html' => array(
+        'type' => 'Text',
+      ),
+    );
+    $fields['thermometer_offset_donors'] = array(
+      'name' => 'thermometer_offset_donors',
+      'title' => E::ts('Amount to offset existing number of contributors? (optional)'),
+      'type' => CRM_Utils_Type::T_MONEY,
+      'entity' => 'ContributionPage',
+      'bao' => 'CRM_Contribute_BAO_ContributionPage',
+      'localizable' => 0,
+      'html' => array(
+        'type' => 'Text',
+      ),
+    );
   };
 }
 
