@@ -226,7 +226,7 @@ function civithermometer_civicrm_entityTypes(&$entityTypes) {
     );
     $fields['thermometer_offset_amount'] = array(
       'name' => 'thermometer_offset_amount',
-      'title' => E::ts('Amount to offset existing contribution total? (optional)'),
+      'title' => E::ts('Adjust existing contribution total? (optional; use negative numbers to subtract)'),
       'type' => CRM_Utils_Type::T_MONEY,
       'entity' => 'ContributionPage',
       'bao' => 'CRM_Contribute_BAO_ContributionPage',
@@ -237,7 +237,7 @@ function civithermometer_civicrm_entityTypes(&$entityTypes) {
     );
     $fields['thermometer_offset_donors'] = array(
       'name' => 'thermometer_offset_donors',
-      'title' => E::ts('Amount to offset existing number of contributors? (optional)'),
+      'title' => E::ts('Adjust existing number of contributors? (optional; use negative numbers to subtract)'),
       'type' => CRM_Utils_Type::T_INT,
       'entity' => 'ContributionPage',
       'bao' => 'CRM_Contribute_BAO_ContributionPage',
