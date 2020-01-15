@@ -23,6 +23,8 @@ class CRM_Civithermometer_Form_Thermometer extends CRM_Contribute_Form_Contribut
     $this->addField('thermometer_is_enabled');
     $this->addField('thermometer_stretch_goal');
     $this->addField('thermometer_is_double');
+    $this->addField('thermometer_offset_amount');
+    $this->addField('thermometer_offset_donors');
 
     $this->addButtons(array(
       array(

@@ -192,38 +192,60 @@ function civithermometer_civicrm_tabset($tabsetName, &$tabs, $context) {
 function civithermometer_civicrm_entityTypes(&$entityTypes) {
   $entityTypes['CRM_Contribute_DAO_ContributionPage']['fields_callback'][] = function($class, &$fields) {
     $fields['thermometer_is_enabled'] = array(
-    'name' => 'thermometer_is_enabled',
-    'title' => E::ts('Add thermometer to the page'),
-    'type' => CRM_Utils_Type::T_BOOLEAN,
-    'entity' => 'ContributionPage',
-    'bao' => 'CRM_Contribute_BAO_ContributionPage',
-    'localizable' => 0,
-    'html' => array(
-      'type' => 'CheckBox',
-    ),
-  );
-  $fields['thermometer_is_double'] = array(
-    'name' => 'thermometer_is_double',
-    'title' => E::ts('is this a double your donation thermometer? (optional)'),
-    'type' => CRM_Utils_Type::T_BOOLEAN,
-    'entity' => 'ContributionPage',
-    'bao' => 'CRM_Contribute_BAO_ContributionPage',
-    'localizable' => 0,
-    'html' => array(
-      'type' => 'CheckBox',
-    ),
-  );
-  $fields['thermometer_stretch_goal'] = array(
-    'name' => 'thermometer_stretch_goal',
-    'title' => E::ts('Stretch goal if goal amount is reached? (optional)'),
-    'type' => CRM_Utils_Type::T_MONEY,
-    'entity' => 'ContributionPage',
-    'bao' => 'CRM_Contribute_BAO_ContributionPage',
-    'localizable' => 0,
-    'html' => array(
-      'type' => 'Text',
-    ),
-  );
+      'name' => 'thermometer_is_enabled',
+      'title' => E::ts('Add thermometer to the page'),
+      'type' => CRM_Utils_Type::T_BOOLEAN,
+      'entity' => 'ContributionPage',
+      'bao' => 'CRM_Contribute_BAO_ContributionPage',
+      'localizable' => 0,
+      'html' => array(
+        'type' => 'CheckBox',
+      ),
+    );
+    $fields['thermometer_is_double'] = array(
+      'name' => 'thermometer_is_double',
+      'title' => E::ts('Is this a double your donation thermometer? (optional)'),
+      'type' => CRM_Utils_Type::T_BOOLEAN,
+      'entity' => 'ContributionPage',
+      'bao' => 'CRM_Contribute_BAO_ContributionPage',
+      'localizable' => 0,
+      'html' => array(
+        'type' => 'CheckBox',
+      ),
+    );
+    $fields['thermometer_stretch_goal'] = array(
+      'name' => 'thermometer_stretch_goal',
+      'title' => E::ts('Stretch goal if goal amount is reached? (optional)'),
+      'type' => CRM_Utils_Type::T_MONEY,
+      'entity' => 'ContributionPage',
+      'bao' => 'CRM_Contribute_BAO_ContributionPage',
+      'localizable' => 0,
+      'html' => array(
+        'type' => 'Text',
+      ),
+    );
+    $fields['thermometer_offset_amount'] = array(
+      'name' => 'thermometer_offset_amount',
+      'title' => E::ts('Adjust existing contribution total? (optional; use negative numbers to subtract)'),
+      'type' => CRM_Utils_Type::T_MONEY,
+      'entity' => 'ContributionPage',
+      'bao' => 'CRM_Contribute_BAO_ContributionPage',
+      'localizable' => 0,
+      'html' => array(
+        'type' => 'Text',
+      ),
+    );
+    $fields['thermometer_offset_donors'] = array(
+      'name' => 'thermometer_offset_donors',
+      'title' => E::ts('Adjust existing number of contributors? (optional; use negative numbers to subtract)'),
+      'type' => CRM_Utils_Type::T_INT,
+      'entity' => 'ContributionPage',
+      'bao' => 'CRM_Contribute_BAO_ContributionPage',
+      'localizable' => 0,
+      'html' => array(
+        'type' => 'Text',
+      ),
+    );
   };
 }
 
@@ -237,6 +259,8 @@ function civithermometer_civicrm_buildForm($formName, &$form) {
         'thermometer_is_double',
         'thermometer_stretch_goal',
         'goal_amount',
+        'thermometer_offset_amount',
+        'thermometer_offset_donors',
       ])
       ->addWhere('id', '=', $formId)
       ->setCheckPermissions(FALSE)
@@ -257,6 +281,8 @@ function civithermometer_civicrm_buildForm($formName, &$form) {
       $isDouble = $contribPage->first()['thermometer_is_double'];
       $numberDonors = $contributions->count();
       $amountRaised = 0;
+      $offsetRaised = $contribPage->first()['thermometer_offset_amount'];
+      $offsetDonors = $contribPage->first()['thermometer_offset_donors'];
 
       if ($numberDonors > 0) {
         $amounts = array_column((array) $contributions, 'total_amount');
@@ -264,6 +290,10 @@ function civithermometer_civicrm_buildForm($formName, &$form) {
           return ($a += $b);
         });
       }
+
+      // Apply offsets if defined
+      $amountRaised += $offsetRaised;
+      $numberDonors += $offsetDonors;
 
       // Get thermometer HTML and CSS
       $thermo_settings = \Civi\Api4\Setting::get()
