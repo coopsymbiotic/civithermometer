@@ -51,6 +51,9 @@ thermometer.
 
 ## Known Issues
 
+The extension makes use of CiviCRM API v3 _and_ v4 calls. Sites running CiviCRM 5.19 or higher will have both
+installed automatically. All v3 calls will eventually be rewritten as v4 calls.
+
 The extension works by using JavaScript to get and calculate required values, then manipulate the DOM to
 render and update the thermometer. At present the extension is expecting HTML elements that possess certain
 class names. These will be documented in this file in due course.
